@@ -3,8 +3,7 @@ package ru.vsu.cs.mosyakin;
 import java.util.ArrayList;
 /**
  * Класс вектора размерности 4.
- * @autor Владимир Мосякин
- * @version 1.0
+ * @version 1.1
  */
 public class Vector4f {
     /** Поле х. */
@@ -132,22 +131,14 @@ public class Vector4f {
     /** Нормализация вектора.
      * Возвращает новый вектор.
      * */
-    public Vector4f normalization() {
-        return new Vector4f(this.x / length, this.y / length, this.z / length, this.w / length);
+    public Vector4f normalize() {
+        return this.divide(length);
     }
     /** Нормализация вектора.
      * Нормализация остается в векторе, от которого вызывается.
      * */
-    public void normalizationThis() {
-        if (length == 0) {
-            throw new NullPointerException("Exception: scalar is null!");
-        }else {
-            this.x /= length;
-            this.y /= length;
-            this.z /= length;
-            this.w /= length;
-            this.length = (float) Math.sqrt((x * x) + (y * y) + (z * z)+(w*w));
-        }
+    public void normalizeThis() {
+        divide(length);
     }
     /** Скалярное умножение векторов.
      * */

@@ -3,8 +3,7 @@ package ru.vsu.cs.mosyakin;
 import java.util.ArrayList;
 /**
  * Класс вектора размерности 3.
- * @autor Владимир Мосякин
- * @version 1.0
+ * @version 1.1
  */
 public class Vector3f {
     /** Поле х. */
@@ -122,26 +121,26 @@ public class Vector3f {
     /** Нормализация вектора.
      * Возвращает новый вектор.
      * */
-    public Vector3f normalization() {
-        return new Vector3f(this.x / length, this.y / length, this.z / length);
+    public Vector3f normalize() {
+        return this.divide(length);
     }
     /** Нормализация вектора.
      * Нормализация остается в векторе, от которого вызывается.
      * */
-    public void normalizationThis() {
-        if (length == 0) {
-            throw new NullPointerException("Exception: scalar is null!");
-        }else {
-            this.x /= length;
-            this.y /= length;
-            this.z /= length;
-            this.length = (float) Math.sqrt((x * x) + (y * y) + (z * z));
-        }
+    public void normalizeThis() {
+        divide(length);
     }
     /** Скалярное умножение векторов.
      * */
     public float multiplyScalar(Vector3f vector) {
         return this.x * vector.getX() + this.y * vector.getY() + this.z * vector.getZ();
+    }
+    /** Векторное произведение векторов.
+     * Возвращает вектор.
+     * */
+    public Vector3f multiplyVector(Vector3f vector) {
+
+        return new Vector3f(this.y * vector.getZ() - this.z * vector.getY(), this.z * vector.getX() - this.x * vector.getZ(), this.x * vector.getY() - this.y * vector.getX());
     }
 
     public float getX() {
