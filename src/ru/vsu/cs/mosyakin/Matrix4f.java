@@ -1,7 +1,7 @@
 package ru.vsu.cs.mosyakin;
 /**
  * Класс матрицы размерности 4.
- * @version 1.0
+ * @version 1.1
  */
 public class Matrix4f {
     /**
@@ -11,68 +11,68 @@ public class Matrix4f {
     /**
      * Поле элементов матрицы.
      */
-    private float[][] elements = new float[size][size];
+    private float[][] values;
     /**
      * Конструктор матрицы через двумерный массив float.
      */
-    public Matrix4f(float[][] elements) {
-        this.elements = elements;
+    public Matrix4f(float[][] values) {
+        this.values = values;
     }
     /**
      * Конструктор матрицы через другую матрицу Matrix4f.
      */
     public Matrix4f(Matrix4f matrix) {
-        this.elements = matrix.elements;
+        this.values = matrix.values;
     }
     /**
      * Сложение матриц.
      * Возвращает матрицу.
      */
-    public Matrix4f add(Matrix4f input) {
-        return new Matrix4f(MatrixOperations.add(this.elements, input.elements));
+    public Matrix4f plus(Matrix4f matrix) {
+        return new Matrix4f(MatrixOperations.plus(this.values, matrix.values));
     }
     /**
      * Сложение матриц.
      * Сложение остается в матрице, от которой вызывается.
      */
-    public void addToThis(Matrix4f input) {
-        setMatrix(new Matrix4f(MatrixOperations.add(this.elements, input.elements)));
+    public void plusToThis(Matrix4f matrix) {
+        setMatrix(new Matrix4f(MatrixOperations.plus(this.values, matrix.values)));
     }
     /**
      * Вычитание матриц.
      * Возвращает матрицу.
      */
-    public Matrix4f subtract(Matrix4f input) {
-        return new Matrix4f(MatrixOperations.subtract(this.elements, input.elements));
+    public Matrix4f minus(Matrix4f matrix) {
+        return new Matrix4f(MatrixOperations.minus(this.values, matrix.values));
     }
     /**
      * Вычитание матриц.
      * Вычитание остается в матрице, от которой вызывается.
      */
-    public void subtractFromThis(Matrix4f input) {
-        setMatrix(new Matrix4f(MatrixOperations.subtract(this.elements, input.elements)));
+    public void minusFromThis(Matrix4f matrix) {
+        setMatrix(new Matrix4f(MatrixOperations.minus(this.values, matrix.values)));
     }
     /**
      * Умножение матрицы на вектор.
      * Возвращает вектор.
      */
     public Vector4f multiply(Vector4f vector) {
-        float[] returnVector = MatrixOperations.multiply(this.elements, new float [] {vector.getX(), vector.getY(), vector.getZ(), vector.getW()});
+        float[] returnVector = MatrixOperations.multiply(this.values, new float [] {vector.getX(), vector.getY(), vector.getZ(), vector.getW()});
         return new Vector4f(returnVector[0], returnVector[1], returnVector[2],returnVector[3]);
     }
     /**
      * Умножение матриц.
      * Возвращает матрицу.
      */
-    public Matrix4f multiply(Matrix4f input) {
-        return new Matrix4f(MatrixOperations.multiply(this.elements, input.elements));
+    public Matrix4f multiply(Matrix4f matrix) {
+        return new Matrix4f(MatrixOperations.multiply(this.values, matrix.values));
     }
     /**
      * Умножение матриц.
      * Умножение остается в матрице, от которой вызывается.
      */
-    public void multiplyThis(Matrix4f input) {
-        setMatrix(new Matrix4f(MatrixOperations.multiply(this.elements, input.elements)));
+    public void multiplyThis(Matrix4f matrix) {
+        setMatrix(new Matrix4f(MatrixOperations.multiply(this.values, matrix.values)));
     }
     /**
      * Создание единичной матрицы.
@@ -93,52 +93,52 @@ public class Matrix4f {
      * Возвращает определитель.
      */
     public float getDeterminant() {
-        return MatrixOperations.getDeterminant(elements);
+        return MatrixOperations.getDeterminant(values);
     }
     /**
      * Создание обратной матрицы.
      * Возвращает матрицу.
      */
     public Matrix4f inverse() {
-        return new Matrix4f(MatrixOperations.inverseMatrix(this.elements));
+        return new Matrix4f(MatrixOperations.inverseMatrix(this.values));
     }
     /**
      * Создание обратной матрицы.
      * Замещает матрицу, от которой вызывается.
      */
     public void inverseThis() {
-        setMatrix(new Matrix4f(MatrixOperations.inverseMatrix(this.elements)));
+        setMatrix(new Matrix4f(MatrixOperations.inverseMatrix(this.values)));
     }
     /**
      * Транспонирование матрицы.
      * Возвращает матрицу.
      */
     public Matrix4f transpose() {
-        return new Matrix4f(MatrixOperations.transpose(this.elements));
+        return new Matrix4f(MatrixOperations.transpose(this.values));
     }
     /**
      * Транспонирование матрицы.
      * Замещает матрицу, от которой вызывается.
      */
     public void transposeThis() {
-        setMatrix(new Matrix4f(MatrixOperations.transpose(this.elements)));
+        setMatrix(new Matrix4f(MatrixOperations.transpose(this.values)));
     }
     /**
      * Замещает матрицу, от которой вызывается, на переданный двумерный массив размерности 4.
      */
     public void setMatrix(float[][] matrix) {
-        this.elements = matrix;
+        this.values = matrix;
     }
     /**
      * Замещает матрицу, от которой вызывается, на переданную матрицу Matrix4f.
      */
     public void setMatrix(Matrix4f matrix){
-        this.elements = matrix.elements;
+        this.values = matrix.values;
     }
     /**
      * Возвращает элементы матрицы.
      */
     public float[][] getMatrix() {
-        return elements;
+        return values;
     }
 }

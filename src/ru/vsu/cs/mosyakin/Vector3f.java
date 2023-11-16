@@ -3,7 +3,7 @@ package ru.vsu.cs.mosyakin;
 import java.util.ArrayList;
 /**
  * Класс вектора размерности 3.
- * @version 1.1
+ * @version 1.2
  */
 public class Vector3f {
     /** Поле х. */
@@ -53,13 +53,13 @@ public class Vector3f {
     /** Сложение двух векторов.
      * Возвращает новый вектор.
      * */
-    public Vector3f add(Vector3f vector3f){
+    public Vector3f plus(Vector3f vector3f){
         return new Vector3f(this.x + vector3f.getX(), this.y + vector3f.getY(), this.z + vector3f.getZ());
     }
     /** Сложение двух векторов.
      * Сложение остается в векторе, от которого вызывается.
      * */
-    public void addToThis(Vector3f vector3f){
+    public void plusToThis(Vector3f vector3f){
         this.x += vector3f.getX();
         this.y += vector3f.getY();
         this.z += vector3f.getZ();
@@ -68,13 +68,13 @@ public class Vector3f {
     /** Вычитание двух векторов.
      * Возвращает новый вектор.
      * */
-    public Vector3f subtract(Vector3f vector3f) {
+    public Vector3f minus(Vector3f vector3f) {
         return new Vector3f(this.x - vector3f.getX(), this.y - vector3f.getY(), this.z - vector3f.getZ());
     }
     /** Вычитание двух векторов.
      * Вычитание остается в векторе, от которого вызывается.
      * */
-    public void subtractFromThis(Vector3f vector3f){
+    public void minusFromThis(Vector3f vector3f){
         this.x -= vector3f.getX();
         this.y -= vector3f.getY();
         this.z -= vector3f.getZ();
@@ -128,7 +128,7 @@ public class Vector3f {
      * Нормализация остается в векторе, от которого вызывается.
      * */
     public void normalizeThis() {
-        divide(length);
+        divideThis(length);
     }
     /** Скалярное умножение векторов.
      * */

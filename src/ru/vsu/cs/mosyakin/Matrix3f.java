@@ -11,68 +11,72 @@ public class Matrix3f {
     /**
      * Поле элементов матрицы.
      */
-    private float[][] elements = new float[size][size];
+    private float[][] values = new float[3][3];
     /**
      * Конструктор матрицы через двумерный массив float.
      */
-    public Matrix3f(float[][] elements) {
-        this.elements = elements;
+    public Matrix3f(float[][] values) {
+        if (values.length<=3 && values[0].length<=3) {
+            this.values = values;
+        }else {
+            throw new ArithmeticException("The number of columns of one of the matrices is not equal to the number of rows");
+        }
     }
     /**
      * Конструктор матрицы через другую матрицу Matrix3f.
      */
     public Matrix3f(Matrix3f matrix) {
-        this.elements = matrix.elements;
+        this.values = matrix.values;
     }
     /**
      * Сложение матриц.
      * Возвращает матрицу.
      */
-    public Matrix3f add(Matrix3f input) {
-        return new Matrix3f(MatrixOperations.add(this.elements, input.elements));
+    public Matrix3f plus(Matrix3f matrix) {
+        return new Matrix3f(MatrixOperations.plus(this.values, matrix.values));
     }
     /**
      * Сложение матриц.
      * Сложение остается в матрице, от которой вызывается.
      */
-    public void addToThis(Matrix3f input) {
-        setMatrix(new Matrix3f(MatrixOperations.add(this.elements, input.elements)));
+    public void plusToThis(Matrix3f matrix) {
+        setMatrix(new Matrix3f(MatrixOperations.plus(this.values, matrix.values)));
     }
     /**
      * Вычитание матриц.
      * Возвращает матрицу.
      */
-    public Matrix3f subtract(Matrix3f input) {
-        return new Matrix3f(MatrixOperations.subtract(this.elements, input.elements));
+    public Matrix3f minus(Matrix3f matrix) {
+        return new Matrix3f(MatrixOperations.minus(this.values, matrix.values));
     }
     /**
      * Вычитание матриц.
      * Вычитание остается в матрице, от которой вызывается.
      */
-    public void subtractFromThis(Matrix3f input) {
-        setMatrix(new Matrix3f(MatrixOperations.subtract(this.elements, input.elements)));
+    public void minusFromThis(Matrix3f matrix) {
+        setMatrix(new Matrix3f(MatrixOperations.minus(this.values, matrix.values)));
     }
     /**
      * Умножение матрицы на вектор.
      * Возвращает вектор.
      */
     public Vector3f multiply(Vector3f vector) {
-        float[] returnVector = MatrixOperations.multiply(this.elements, new float [] {vector.getX(), vector.getY(), vector.getZ()});
+        float[] returnVector = MatrixOperations.multiply(this.values, new float[] {vector.getX(), vector.getY(), vector.getZ()});
         return new Vector3f(returnVector[0], returnVector[1], returnVector[2]);
     }
     /**
      * Умножение матриц.
      * Возвращает матрицу.
      */
-    public Matrix3f multiply(Matrix3f input) {
-        return new Matrix3f(MatrixOperations.multiply(this.elements, input.elements));
+    public Matrix3f multiply(Matrix3f matrix) {
+        return new Matrix3f(MatrixOperations.multiply(this.values, matrix.values));
     }
     /**
      * Умножение матриц.
      * Умножение остается в матрице, от которой вызывается.
      */
-    public void multiplyThis(Matrix3f input) {
-        setMatrix(new Matrix3f(MatrixOperations.multiply(this.elements, input.elements)));
+    public void multiplyThis(Matrix3f matrix) {
+        setMatrix(new Matrix3f(MatrixOperations.multiply(this.values, matrix.values)));
     }
     /**
      * Создание единичной матрицы.
@@ -93,52 +97,52 @@ public class Matrix3f {
      * Возвращает определитель.
      */
     public float getDeterminant() {
-        return MatrixOperations.getDeterminant(elements);
+        return MatrixOperations.getDeterminant(values);
     }
     /**
      * Создание обратной матрицы.
      * Возвращает матрицу.
      */
     public Matrix3f inverse() {
-        return new Matrix3f(MatrixOperations.inverseMatrix(this.elements));
+        return new Matrix3f(MatrixOperations.inverseMatrix(this.values));
     }
     /**
      * Создание обратной матрицы.
      * Замещает матрицу, от которой вызывается.
      */
     public void inverseThis() {
-        setMatrix(new Matrix3f(MatrixOperations.inverseMatrix(this.elements)));
+        setMatrix(new Matrix3f(MatrixOperations.inverseMatrix(this.values)));
     }
     /**
      * Транспонирование матрицы.
      * Возвращает матрицу.
      */
     public Matrix3f transpose() {
-        return new Matrix3f(MatrixOperations.transpose(this.elements));
+        return new Matrix3f(MatrixOperations.transpose(this.values));
     }
     /**
      * Транспонирование матрицы.
      * Замещает матрицу, от которой вызывается.
      */
     public void transposeThis() {
-        setMatrix(new Matrix3f(MatrixOperations.transpose(this.elements)));
+        setMatrix(new Matrix3f(MatrixOperations.transpose(this.values)));
     }
     /**
      * Замещает матрицу, от которой вызывается, на переданный двумерный массив размерности 3.
      */
     public void setMatrix(float[][] matrix) {
-        this.elements = matrix;
+        this.values = matrix;
     }
     /**
      * Замещает матрицу, от которой вызывается, на переданную матрицу Matrix3f.
      */
     public void setMatrix(Matrix3f matrix){
-        this.elements = matrix.elements;
+        this.values = matrix.values;
     }
     /**
      * Возвращает элементы матрицы.
      */
     public float[][] getMatrix() {
-        return elements;
+        return values;
     }
 }

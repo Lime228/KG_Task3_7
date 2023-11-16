@@ -3,7 +3,7 @@ package ru.vsu.cs.mosyakin;
 import java.util.ArrayList;
 /**
  * Класс вектора размерности 4.
- * @version 1.1
+ * @version 1.2
  */
 public class Vector4f {
     /** Поле х. */
@@ -59,13 +59,13 @@ public class Vector4f {
     /** Сложение двух векторов.
      * Возвращает новый вектор.
      * */
-    public Vector4f add(Vector4f vector4f){
+    public Vector4f plus(Vector4f vector4f){
         return new Vector4f(this.x + vector4f.getX(), this.y + vector4f.getY(), this.z + vector4f.getZ(), this.w + vector4f.getW());
     }
     /** Сложение двух векторов.
      * Сложение остается в векторе, от которого вызывается.
      * */
-    public void addToThis(Vector4f vector4f){
+    public void plusToThis(Vector4f vector4f){
         this.x += vector4f.getX();
         this.y += vector4f.getY();
         this.z += vector4f.getZ();
@@ -75,13 +75,13 @@ public class Vector4f {
     /** Вычитание двух векторов.
      * Возвращает новый вектор.
      * */
-    public Vector4f subtract(Vector4f vector4f) {
+    public Vector4f minus(Vector4f vector4f) {
         return new Vector4f(this.x - vector4f.getX(), this.y - vector4f.getY(), this.z - vector4f.getZ(), this.w - vector4f.getW());
     }
     /** Вычитание двух векторов.
      * Вычитание остается в векторе, от которого вызывается.
      * */
-    public void subtractFromThis(Vector4f vector4f){
+    public void minusFromThis(Vector4f vector4f){
         this.x -= vector4f.getX();
         this.y -= vector4f.getY();
         this.z -= vector4f.getZ();
@@ -138,7 +138,7 @@ public class Vector4f {
      * Нормализация остается в векторе, от которого вызывается.
      * */
     public void normalizeThis() {
-        divide(length);
+        divideThis(length);
     }
     /** Скалярное умножение векторов.
      * */

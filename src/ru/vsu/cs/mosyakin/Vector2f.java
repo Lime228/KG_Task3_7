@@ -3,7 +3,7 @@ package ru.vsu.cs.mosyakin;
 import java.util.ArrayList;
 /**
  * Класс вектора размерности 2.
- * @version 1.1
+ * @version 1.2
  */
 public class Vector2f {
     /** Поле х. */
@@ -47,13 +47,13 @@ public class Vector2f {
     /** Сложение двух векторов.
      * Возвращает новый вектор.
      * */
-    public Vector2f add(Vector2f vector2f){
+    public Vector2f plus(Vector2f vector2f){
         return new Vector2f(this.x + vector2f.getX(), this.y + vector2f.getY());
     }
     /** Сложение двух векторов.
      * Сложение остается в векторе, от которого вызывается.
      * */
-    public void addToThis(Vector2f vector2f){
+    public void plusToThis(Vector2f vector2f){
         this.x += vector2f.getX();
         this.y += vector2f.getY();
         this.length = (float) Math.sqrt((x*x)+(y*y));
@@ -61,13 +61,13 @@ public class Vector2f {
     /** Вычитание двух векторов.
      * Возвращает новый вектор.
      * */
-    public Vector2f subtract(Vector2f vector2f) {
+    public Vector2f minus(Vector2f vector2f) {
         return new Vector2f(this.x - vector2f.x, this.y - vector2f.y);
     }
     /** Вычитание двух векторов.
      * Вычитание остается в векторе, от которого вызывается.
      * */
-    public void subtractFromThis(Vector2f vector2f){
+    public void minusFromThis(Vector2f vector2f){
         this.x -= vector2f.getX();
         this.y -= vector2f.getY();
         this.length = (float) Math.sqrt((x*x)+(y*y));
@@ -118,7 +118,7 @@ public class Vector2f {
      * Нормализация остается в векторе, от которого вызывается.
      * */
     public void normalizeThis() {
-        divide(length);
+        divideThis(length);
     }
     /** Скалярное умножение векторов.
      * */
