@@ -1,31 +1,56 @@
 package ru.vsu.cs.mosyakin;
 
 import java.util.ArrayList;
+
 /**
  * Класс вектора размерности 2.
- * @version 1.2
+ *
+ * @version 1.3
  */
 public class Vector2f {
-    /** Поле х. */
+    /**
+     * Поле х.
+     */
     private float x;
-    /** Поле y. */
+    /**
+     * Поле y.
+     */
     private float y;
-    /** Поле длинна. */
+    /**
+     * Поле длинна.
+     */
     private float length;
-    /** Конструктор вектора по значениям х и y. */
-    public Vector2f(float x, float y){
+
+    /**
+     * Конструктор вектора по значениям х и y.
+     *
+     * @param x Первый элемент
+     * @param y Второй элемент
+     */
+
+    public Vector2f(float x, float y) {
         this.x = x;
         this.y = y;
-        this.length = (float) Math.sqrt((x*x)+(y*y));
+        this.length = (float) Math.sqrt((x * x) + (y * y));
     }
-    /** Конструктор вектора из другого вектора. */
-    public Vector2f(Vector2f vector2f){
+
+    /**
+     * Конструктор вектора из другого вектора.
+     *
+     * @param vector2f Вектор, который нужно продублировать
+     */
+    public Vector2f(Vector2f vector2f) {
         this.x = vector2f.getX();
         this.y = vector2f.getY();
         this.length = vector2f.getLength();
     }
-    /** Конструктор вектора по значениям массива float. */
-    public Vector2f(float[] floats){
+
+    /**
+     * Конструктор вектора по значениям массива float.
+     *
+     * @param floats Массив длинны не менее 2, берет первые два элемента для создания вектора
+     */
+    public Vector2f(float[] floats) {
         if (floats.length < 2) {
             throw new NullPointerException("Exception: massive don't have 2 elements!");
         } else {
@@ -34,8 +59,13 @@ public class Vector2f {
             this.length = (float) Math.sqrt((floats[0] * floats[0]) + (floats[1] * floats[1]));
         }
     }
-    /** Конструктор вектора по значениям листа float. */
-    public Vector2f(ArrayList<Float> floats){
+
+    /**
+     * Конструктор вектора по значениям листа float.
+     *
+     * @param floats Лист длинны не менее 2, берет первые два элемента для создания вектора
+     */
+    public Vector2f(ArrayList<Float> floats) {
         if (floats.size() < 2) {
             throw new NullPointerException("Exception: list don't have 2 elements!");
         } else {
@@ -44,51 +74,79 @@ public class Vector2f {
             this.length = (float) Math.sqrt((floats.get(0) * floats.get(0)) + (floats.get(1) * floats.get(1)));
         }
     }
-    /** Сложение двух векторов.
-     * Возвращает новый вектор.
-     * */
-    public Vector2f plus(Vector2f vector2f){
+
+    /**
+     * Сложение двух векторов.
+     *
+     * @param vector2f Вектор который нужно прибавить
+     * @return Новый вектор.
+     */
+    public Vector2f plus(Vector2f vector2f) {
         return new Vector2f(this.x + vector2f.getX(), this.y + vector2f.getY());
     }
-    /** Сложение двух векторов.
+
+    /**
+     * Сложение двух векторов.
      * Сложение остается в векторе, от которого вызывается.
-     * */
-    public void plusToThis(Vector2f vector2f){
+     *
+     * @param vector2f Вектор который нужно прибавить
+     */
+    public void plusToThis(Vector2f vector2f) {
         this.x += vector2f.getX();
         this.y += vector2f.getY();
-        this.length = (float) Math.sqrt((x*x)+(y*y));
+        this.length = (float) Math.sqrt((x * x) + (y * y));
     }
-    /** Вычитание двух векторов.
-     * Возвращает новый вектор.
-     * */
+
+    /**
+     * Вычитание двух векторов.
+     *
+     * @param vector2f Вектор который нужно отнять
+     * @return Новый вектор.
+     */
     public Vector2f minus(Vector2f vector2f) {
         return new Vector2f(this.x - vector2f.x, this.y - vector2f.y);
     }
-    /** Вычитание двух векторов.
+
+    /**
+     * Вычитание двух векторов.
      * Вычитание остается в векторе, от которого вызывается.
-     * */
-    public void minusFromThis(Vector2f vector2f){
+     *
+     * @param vector2f Вектор который нужно отнять
+     */
+    public void minusFromThis(Vector2f vector2f) {
         this.x -= vector2f.getX();
         this.y -= vector2f.getY();
-        this.length = (float) Math.sqrt((x*x)+(y*y));
+        this.length = (float) Math.sqrt((x * x) + (y * y));
     }
-    /** Умножение вектора на скаляр.
-     * Возвращает новый вектор.
-     * */
+
+    /**
+     * Умножение вектора на скаляр.
+     *
+     * @param scalar Скаляр, на который нужно умножить
+     * @return Новый вектор.
+     */
     public Vector2f multiply(float scalar) {
         return new Vector2f(this.x * scalar, this.y * scalar);
     }
-    /** Умножение вектора на скаляр.
+
+    /**
+     * Умножение вектора на скаляр.
      * Умножение остается в векторе, от которого вызывается.
-     * */
+     *
+     * @param scalar Скаляр, на который нужно умножить
+     */
     public void multiplyThis(float scalar) {
         this.x *= scalar;
         this.y *= scalar;
-        this.length = (float) Math.sqrt((x*x)+(y*y));
+        this.length = (float) Math.sqrt((x * x) + (y * y));
     }
-    /** Деление вектора на скаляр.
-     * Возвращает новый вектор.
-     * */
+
+    /**
+     * Деление вектора на скаляр.
+     *
+     * @param scalar Скаляр, на который нужно поделить
+     * @return Новый вектор.
+     */
     public Vector2f divide(float scalar) {
         if (scalar == 0) {
             throw new NullPointerException("Exception: scalar is null!");
@@ -96,32 +154,46 @@ public class Vector2f {
             return new Vector2f(this.x / scalar, this.y / scalar);
         }
     }
-    /** Деление вектора на скаляр.
+
+    /**
+     * Деление вектора на скаляр.
      * Деление остается в векторе, от которого вызывается.
-     * */
+     *
+     * @param scalar Скаляр, на который нужно поделить
+     */
     public void divideThis(float scalar) {
         if (scalar == 0) {
             throw new NullPointerException("Exception: scalar is null!");
         } else {
             this.x /= scalar;
             this.y /= scalar;
-            this.length = (float) Math.sqrt((x*x)+(y*y));
+            this.length = (float) Math.sqrt((x * x) + (y * y));
         }
     }
-    /** Нормализация вектора.
-     * Возвращает новый вектор.
-     * */
+
+    /**
+     * Нормализация вектора.
+     *
+     * @return Новый вектор.
+     */
     public Vector2f normalize() {
         return this.divide(length);
     }
-    /** Нормализация вектора.
+
+    /**
+     * Нормализация вектора.
      * Нормализация остается в векторе, от которого вызывается.
-     * */
+     */
     public void normalizeThis() {
         divideThis(length);
     }
-    /** Скалярное умножение векторов.
-     * */
+
+    /**
+     * Скалярное умножение векторов.
+     *
+     * @param vector Вектор, на который нужно умножить
+     * @return Результат умножения
+     */
     public float multiplyScalar(Vector2f vector) {
         return this.x * vector.x + this.y * vector.y;
     }

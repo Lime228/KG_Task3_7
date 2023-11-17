@@ -1,17 +1,21 @@
 package ru.vsu.cs.mosyakin;
+
 /**
  * Класс операций над матрицей.
+ *
  * @version 1.2
  */
 public class MatrixOperations {
     /**
      * Получение определителя.
-     * Возвращает определитель.
+     *
+     * @param matrix Матрица, определитель которой нужно найти
+     * @return Определитель.
      */
     protected static float getDeterminant(float[][] matrix) {
-        if(matrix.length != matrix[0].length){
+        if (matrix.length != matrix[0].length) {
             throw new ArithmeticException("The number of matrix columns is not equal to the number of rows");
-        }else {
+        } else {
             float result = 0;
 
             if (matrix.length == 1) {
@@ -25,55 +29,72 @@ public class MatrixOperations {
             return result;
         }
     }
+
     /**
-     * Уменьшение матрицы на 1.
-     * Возвращает матрицу.
+     * Уменьшение матрицы до указанных индексов.
+     *
+     * @param matrix      Матрица, которую нужно уменьшить
+     * @param lineIndex   Индекс строки, до какой нужно уменьшить
+     * @param columnIndex Индекс столбца, до которого нужно уменьшить
+     * @return Уменьшенную матрицу
      */
     private static float[][] reduceMatrix(float[][] matrix, int lineIndex, int columnIndex) {
         return reduceMatrixColumns(reduceMatrixLines(matrix, lineIndex), columnIndex);
     }
+
     /**
-     * Уменьшение матрицы на строку.
-     * Возвращает матрицу.
+     * Уменьшение матрицы до указанной строки.
+     *
+     * @param matrix    Матрица, которую нужно уменьшить
+     * @param lineIndex Индекс строки, до какой нужно уменьшить
+     * @return Уменьшенную матрицу
      */
-    private static float[][] reduceMatrixLines(float[][] matrix, int index) {
+    private static float[][] reduceMatrixLines(float[][] matrix, int lineIndex) {
         float[][] newMatrix = new float[matrix.length - 1][matrix[0].length];
 
-        for (int i = 0; i < index; i++) {
+        for (int i = 0; i < lineIndex; i++) {
             System.arraycopy(matrix[i], 0, newMatrix[i], 0, newMatrix[i].length);
         }
-        for (int i = index; i < newMatrix.length; i++) {
+        for (int i = lineIndex; i < newMatrix.length; i++) {
             System.arraycopy(matrix[i + 1], 0, newMatrix[i], 0, newMatrix[i].length);
         }
 
         return newMatrix;
     }
+
     /**
-     * Уменьшение матрицы на столбец.
-     * Возвращает матрицу.
+     * Уменьшение матрицы до указанного столбца.
+     *
+     * @param matrix      Матрица, которую нужно уменьшить
+     * @param columnIndex Индекс столбца, до которого нужно уменьшить
+     * @return Уменьшенную матрицу
      */
-    private static float[][] reduceMatrixColumns(float[][] matrix, int index) {
+    private static float[][] reduceMatrixColumns(float[][] matrix, int columnIndex) {
         float[][] newMatrix = new float[matrix.length][matrix[0].length - 1];
 
         for (int i = 0; i < newMatrix.length; i++) {
-            if (index >= 0) {
-                System.arraycopy(matrix[i], 0, newMatrix[i], 0, index);
+            if (columnIndex >= 0) {
+                System.arraycopy(matrix[i], 0, newMatrix[i], 0, columnIndex);
             }
-            if (newMatrix[i].length - index >= 0) {
-                System.arraycopy(matrix[i], index + 1, newMatrix[i], index, newMatrix[i].length - index);
+            if (newMatrix[i].length - columnIndex >= 0) {
+                System.arraycopy(matrix[i], columnIndex + 1, newMatrix[i], columnIndex, newMatrix[i].length - columnIndex);
             }
         }
 
         return newMatrix;
     }
+
     /**
      * Сложение матриц.
-     * Возвращает матрицу.
+     *
+     * @param matrixFirst  Матрица, к которой надо прибавить
+     * @param matrixSecond Матрица, которая прибавляется
+     * @return Результат сложения
      */
     protected static float[][] plus(float[][] matrixFirst, float[][] matrixSecond) {
-        if(matrixFirst.length != matrixFirst[0].length && matrixSecond.length != matrixSecond[0].length && matrixFirst.length != matrixSecond.length && matrixFirst[0].length != matrixSecond[0].length){
+        if (matrixFirst.length != matrixFirst[0].length && matrixSecond.length != matrixSecond[0].length && matrixFirst.length != matrixSecond.length && matrixFirst[0].length != matrixSecond[0].length) {
             throw new ArithmeticException("The number of columns of one of the matrices is not equal to the number of rows");
-        }else {
+        } else {
             float[][] result = new float[matrixFirst.length][matrixFirst.length];
             for (int i = 0; i < result.length; i++) {
                 for (int j = 0; j < result.length; j++) {
@@ -84,14 +105,18 @@ public class MatrixOperations {
             return result;
         }
     }
+
     /**
      * Вычитание матриц.
-     * Возвращает матрицу.
+     *
+     * @param matrixFirst  Матрица, от которой вычитается
+     * @param matrixSecond Матрица, которая вычитается
+     * @return Результат вычитания
      */
     protected static float[][] minus(float[][] matrixFirst, float[][] matrixSecond) {
-        if(matrixFirst.length != matrixFirst[0].length && matrixSecond.length != matrixSecond[0].length && matrixFirst.length != matrixSecond.length && matrixFirst[0].length != matrixSecond[0].length){
+        if (matrixFirst.length != matrixFirst[0].length && matrixSecond.length != matrixSecond[0].length && matrixFirst.length != matrixSecond.length && matrixFirst[0].length != matrixSecond[0].length) {
             throw new ArithmeticException("The number of columns of one of the matrices is not equal to the number of rows");
-        }else {
+        } else {
             float[][] result = new float[matrixFirst.length][matrixFirst.length];
             for (int i = 0; i < result.length; i++) {
                 for (int j = 0; j < result.length; j++) {
@@ -102,19 +127,23 @@ public class MatrixOperations {
             return result;
         }
     }
+
     /**
      * Умножение матрицы на вектор.
-     * Возвращает матрицу.
+     *
+     * @param matrixFirst Матрица, которую нужно умножить
+     * @param vector      Вектор, на который надо умножить
+     * @return Результат умножения в виде вектора
      */
-    protected static float[] multiply(float[][] matrixFirst, float[] matrixSecond) {
-        if(matrixFirst.length != matrixFirst[0].length && matrixFirst[0].length != matrixSecond.length){
+    protected static float[] multiply(float[][] matrixFirst, float[] vector) {
+        if (matrixFirst.length != matrixFirst[0].length && matrixFirst[0].length != vector.length) {
             throw new ArithmeticException("The number of columns matrix is not equal to the number of rows or number matrix columns is not equal to the size of vector");
-        }else {
+        } else {
             float[] result = new float[matrixFirst.length];
             for (int i = 0; i < result.length; i++) {
                 float element = 0;
                 for (int j = 0; j < matrixFirst.length; j++) {
-                    element += matrixFirst[i][j] * matrixSecond[j];
+                    element += matrixFirst[i][j] * vector[j];
                 }
                 result[i] = element;
             }
@@ -122,14 +151,18 @@ public class MatrixOperations {
             return result;
         }
     }
+
     /**
      * Перемножение матриц.
-     * Возвращает матрицу.
+     *
+     * @param matrixFirst  Матрица умножаемая
+     * @param matrixSecond Матрица на которую умножается
+     * @return Результат в виде матрицы
      */
     protected static float[][] multiply(float[][] matrixFirst, float[][] matrixSecond) {
-        if(matrixFirst.length != matrixFirst[0].length && matrixSecond.length != matrixSecond[0].length && matrixFirst.length != matrixSecond.length && matrixFirst[0].length != matrixSecond[0].length){
+        if (matrixFirst.length != matrixFirst[0].length && matrixSecond.length != matrixSecond[0].length && matrixFirst.length != matrixSecond.length && matrixFirst[0].length != matrixSecond[0].length) {
             throw new ArithmeticException("The number of columns of one of the matrices is not equal to the number of rows");
-        }else {
+        } else {
 
             float[][] result = new float[matrixFirst.length][matrixFirst.length];
 
@@ -147,14 +180,18 @@ public class MatrixOperations {
             return result;
         }
     }
+
     /**
      * Умножение матрицы на скаляр.
-     * Возвращает матрицу.
+     *
+     * @param matrixFirst Матрица умножаемая
+     * @param scalar      Скаляр на который умножается
+     * @return Результат в виде матрицы
      */
     protected static float[][] multiplyScalar(float[][] matrixFirst, float scalar) {
-        if(matrixFirst.length != matrixFirst[0].length){
+        if (matrixFirst.length != matrixFirst[0].length) {
             throw new ArithmeticException("The number of matrix columns is not equal to the number of rows");
-        }else {
+        } else {
             float[][] result = new float[matrixFirst.length][matrixFirst.length];
 
             for (int i = 0; i < result.length; i++) {
@@ -166,9 +203,12 @@ public class MatrixOperations {
             return result;
         }
     }
+
     /**
      * Создание нулевой матрицы.
-     * Возвращает матрицу.
+     *
+     * @param size Размер матрицы
+     * @return Нулевая матрица
      */
     protected static float[][] createNullMatrix(int size) {
         float[][] matrix = new float[size][size];
@@ -180,9 +220,12 @@ public class MatrixOperations {
 
         return matrix;
     }
+
     /**
      * Создание единичной матрицы.
-     * Возвращает матрицу.
+     *
+     * @param size Размер матрицы
+     * @return Единичная матрица
      */
     protected static float[][] createUnitMatrix(int size) {
         float[][] matrix = new float[size][size];
@@ -195,35 +238,46 @@ public class MatrixOperations {
 
         return matrix;
     }
+
     /**
      * Делает из матрицы обратную матрицу.
-     * Возвращает матрицу.
+     *
+     * @param matrix Матрица, из которой нужно сделать обратную
+     * @return Возвращает обратную матрицу
      */
-    protected static float[][] inverseMatrix(float[][] matrix) {
+    protected static float[][] inverse(float[][] matrix) {
         float determinant = getDeterminant(matrix);
         if (determinant == 0) {
             throw new ArithmeticException("Matrix is not invertible");
-        }else {
+        } else {
 
             float[][] returnMatrix = new float[matrix.length][matrix.length];
 
             for (int i = 0; i < returnMatrix.length; i++) {
                 for (int j = 0; j < returnMatrix.length; j++) {
-                    returnMatrix[i][j] = (float) Math.pow(-1, i + j) * getDeterminant(reduceMatrix(matrix, i, j));
+                    float adj = (float) Math.pow(-1, i + j) * getDeterminant(reduceMatrix(matrix, i, j));
+                    if (Math.abs(adj) == 0) {
+                        returnMatrix[i][j] = 0;
+                    } else {
+                        returnMatrix[i][j] = adj;
+                    }
                 }
             }
 
             return transpose(multiplyScalar(returnMatrix, 1 / determinant));
         }
     }
+
     /**
      * Транспонирование матрицы.
-     * Возвращает матрицу.
+     *
+     * @param matrix Матрица, которую нужно транспонировать
+     * @return Транспонированная матрица
      */
     protected static float[][] transpose(float[][] matrix) {
-        if(matrix.length != matrix[0].length){
+        if (matrix.length != matrix[0].length) {
             throw new ArithmeticException("The number of matrix columns is not equal to the number of rows");
-        }else {
+        } else {
             float[][] returnMatrix = new float[matrix.length][matrix.length];
 
             for (int i = 0; i < returnMatrix.length; i++) {
