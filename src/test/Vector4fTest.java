@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import ru.vsu.cs.mosyakin.Vector4f;
 
+
 public class Vector4fTest {
     @Test
     void plus(){
